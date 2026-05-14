@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: fraud-monitor-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fraud_monitor
+      MYSQL_USER: frauduser
+      MYSQL_PASSWORD: fraudpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fraud-monitor-backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/fraud_monitor?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+      DB_USERNAME: frauduser
+      DB_PASSWORD: fraudpass
+      JWT_SECRET: bXlTdXBlclNlY3VyZUZyYXVkRGV0ZWN0aW9uSldUU2VjcmV0S2V5Rm9yUHJvZHVjdGlvbjIwMjQ=
+      JWT_EXPIRY: 900000
+      JWT_REFRESH_EXPIRY: 604800000
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: 587
+      MAIL_USERNAME: your-email@gmail.com
+      MAIL_PASSWORD: your-app-password
+      FRONTEND_ORIGIN: http://localhost:5173
+      RATE_LIMIT_MAX_ATTEMPTS: 5
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fraud-monitor-frontend
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data:
