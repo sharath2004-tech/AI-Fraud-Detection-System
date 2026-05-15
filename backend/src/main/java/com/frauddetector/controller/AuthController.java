@@ -53,6 +53,7 @@ public class AuthController {
         authResponse.setAccessToken(accessToken);
         authResponse.setRefreshToken(refreshToken.getToken());
         authResponse.setExpiresIn(900000L);
+        authResponse.setUser(new UserResponse(user));
 
         return ResponseEntity.ok(new ApiResponse<>(true, "Login successful", authResponse));
     }

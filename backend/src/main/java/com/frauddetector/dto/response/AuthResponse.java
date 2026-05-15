@@ -6,6 +6,7 @@ public class AuthResponse {
     private String refreshToken;
     private String tokenType = "Bearer";
     private Long expiresIn;
+    private UserResponse user;
 
     public AuthResponse() {}
 
@@ -47,5 +48,13 @@ public class AuthResponse {
 
     public void setExpiresIn(Long expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public UserResponse getUser() {
+        return user;
+    }
+
+    public void setUser(UserResponse user) {
+        this.user = user;
     }
 }

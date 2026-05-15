@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ShieldAlert } from 'lucide-react';
 import api from '../services/api';
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                         <p>Demo Analyst: analyst1@fraudmonitor.com / Analyst@123</p>
                     </div>
                     <div style={{ marginTop: '16px', textAlign: 'center' }}>
-                        <a href="/register" style={{ color: 'var(--primary-color)', fontSize: '14px', textDecoration: 'none' }}>Don't have an account? Register</a>
+                        <Link to="/register" style={{ color: 'var(--primary-color)', fontSize: '14px', textDecoration: 'none' }}>Don't have an account? Register</Link>
                     </div>
                 </form>
             </div>

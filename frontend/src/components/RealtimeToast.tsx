@@ -13,7 +13,8 @@ const RealtimeToast: React.FC = () => {
     const [toasts, setToasts] = useState<AlertToast[]>([]);
 
     useEffect(() => {
-        const socket = new SockJS('http://localhost:8080/ws');
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+        const socket = new SockJS(`${baseUrl}/ws`);
         const stompClient = Stomp.over(socket);
         stompClient.debug = () => {}; // Disable debug logs
 
