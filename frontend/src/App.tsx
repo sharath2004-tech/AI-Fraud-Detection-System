@@ -14,14 +14,14 @@ import BlacklistManagement from './pages/admin/BlacklistManagement';
 import './index.css';
 
 // Base protection — must be authenticated
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.JSX.Element }) => {
   const { isAuthenticated, user } = useAuth();
   if (!isAuthenticated || !user) return <Navigate to="/login" replace />;
   return children;
 };
 
 // Admin only
-const AdminRoute = ({ children }: { children: JSX.Element }) => {
+const AdminRoute = ({ children }: { children: React.JSX.Element }) => {
   const { user, isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== 'ADMIN') return <Navigate to="/dashboard" replace />;
@@ -29,7 +29,7 @@ const AdminRoute = ({ children }: { children: JSX.Element }) => {
 };
 
 // Analyst or Admin
-const AnalystRoute = ({ children }: { children: JSX.Element }) => {
+const AnalystRoute = ({ children }: { children: React.JSX.Element }) => {
   const { user, isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== 'ANALYST' && user?.role !== 'ADMIN') return <Navigate to="/dashboard" replace />;

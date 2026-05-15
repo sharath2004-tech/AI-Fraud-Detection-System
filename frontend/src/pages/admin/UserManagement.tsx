@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Search, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import api from '../../services/api';
 
 const ROLES = ['ADMIN', 'ANALYST', 'USER'];
