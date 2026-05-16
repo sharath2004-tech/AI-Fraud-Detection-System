@@ -24,7 +24,7 @@ import java.util.Map;
 @SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/dashboard")
-@PreAuthorize("hasAnyRole('ANALYST', 'ADMIN')")
+@PreAuthorize("hasAnyRole('USER', 'ANALYST', 'ADMIN')")
 public class DashboardController {
 
     @Autowired
